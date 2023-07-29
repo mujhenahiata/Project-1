@@ -1,4 +1,5 @@
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,jsonify
+
 #by default 5000 port
 app=Flask(__name__)
 
@@ -9,20 +10,20 @@ def welcome():
 @app.route('/cal',methods=["GET"])
 def math_ops():
     ops=request.json["ops"]
-    a=request.json["number_1"]
-    b=request.json["number_2"]
+    a=int(request.json["number_1"])
+    b=int(request.json["number_2"])
     if ops =='+':
         print("add")
-        return a+b
+        return jsonify((a+b))
     elif ops =='-':
         print("sub")
-        return a-b
+        return jsonify((a-b))
     elif ops =='*':
         print("mul")
-        return a*b
+        return jsonify((a*b))
     elif ops =='/':
         print("div")
-        return a/b
+        return jsonify((a/b))
     else :
         print("enter a valid ops")
     
@@ -30,4 +31,4 @@ def math_ops():
 
 print(__name__)
 if __name__=='__main__':
-    app.run()
+    app.run(debug=True)
